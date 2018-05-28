@@ -3,6 +3,9 @@ localizeHtmlPage();
 // Saves options to chrome.storage.sync.
 function save_options() {
 	var calendarPrivateURL = document.getElementById('calendarPrivateURL').value;
+	var calendarAndMailLogin = document.getElementById('calendarAndMailLogin').value;
+	var calendarAndMailPassword = document.getElementById('calendarAndMailPassword').value;
+	var checkBoxUseIMAP = document.getElementById('checkBoxUseIMAP').checked;
     var displayPrecipitations = document.getElementById('checkBoxPrecipitations').checked;
 	var displayFahrenheit = document.getElementById('checkBoxFahrenheit').checked;
 
@@ -19,6 +22,9 @@ function save_options() {
 
 	chrome.storage.sync.set({
 		calendarPrivateURL: calendarPrivateURL,
+		calendarAndMailLogin: calendarAndMailLogin,
+		calendarAndMailPassword: calendarAndMailPassword,
+		checkBoxUseIMAP: checkBoxUseIMAP,
         displayPrecipitations: displayPrecipitations,
 		displayFahrenheit: displayFahrenheit,
 		rssSources: rssSources,
@@ -39,6 +45,9 @@ function save_options() {
 function restore_options() {
 	chrome.storage.sync.get({
 		calendarPrivateURL: '',
+		calendarAndMailLogin: '',
+		calendarAndMailPassword: '',
+		checkBoxUseIMAP: false,
         displayPrecipitations: true,
 		displayFahrenheit: false,
 		rssSources: [chrome.i18n.getMessage("optionsDefaultRSSURL")],

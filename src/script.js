@@ -1,5 +1,6 @@
 import { UnsplashPhoto } from 'unsplash-source-js';
 import * as ICAL from 'ical.js';
+import * as weatherRefObject from './weatherRef.json';
 
 // Finds current time and date, formats it properly
 function startTime() {
@@ -61,254 +62,6 @@ function getWeather(location) {
 		if (xmlhttp.readyState == 4) {
 			if (xmlhttp.status == 200) {
 				var weather = JSON.parse(xmlhttp.responseText);
-
-				var weatherRefObject = {
-					"0": {
-						"description": "tornado",
-						"icon": "wind",
-						"translation_fr": "tornade"
-					},
-					"1": {
-						"description": "tropical storm",
-						"icon": "wind",
-						"translation_fr": "tempête tropicale"
-					},
-					"2": {
-						"description": "hurricane",
-						"icon": "wind",
-						"translation_fr": "ouragan"
-					},
-					"3": {
-						"description": "severe thunderstorms",
-						"icon": "wind",
-						"translation_fr": "orages violents"
-					},
-					"4": {
-						"description": "thunderstorms",
-						"icon": "wind",
-						"translation_fr": "orages"
-					},
-					"5": {
-						"description": "mixed rain and snow",
-						"icon": "snow",
-						"translation_fr": "pluie et neige"
-					},
-					"6": {
-						"description": "mixed rain and sleet",
-						"icon": "sleet",
-						"translation_fr": "pluie mélangée et neige fondue"
-					},
-					"7": {
-						"description": "mixed snow and sleet",
-						"icon": "sleet",
-						"translation_fr": "neige mélangée et neige fondue"
-					},
-					"8": {
-						"description": "freezing drizzle",
-						"icon": "rain",
-						"translation_fr": "bruine verglaçante"
-					},
-					"9": {
-						"description": "drizzle",
-						"icon": "rain",
-						"translation_fr": "bruine"
-					},
-					"10": {
-						"description": "freezing rain",
-						"icon": "rain",
-						"translation_fr": "pluie verglaçante"
-					},
-					"11": {
-						"description": "showers",
-						"icon": "rain",
-						"translation_fr": "averses"
-					},
-					"12": {
-						"description": "showers",
-						"icon": "rain",
-						"translation_fr": "averses"
-					},
-					"13": {
-						"description": "snow flurries",
-						"icon": "snow",
-						"translation_fr": "averses de neige"
-					},
-					"14": {
-						"description": "light snow showers",
-						"icon": "snow",
-						"translation_fr": "légère chute de neige"
-					},
-					"15": {
-						"description": "blowing snow",
-						"icon": "snow",
-						"translation_fr": "neige soufflante"
-					},
-					"16": {
-						"description": "snow",
-						"icon": "snow",
-						"translation_fr": "neige"
-					},
-					"17": {
-						"description": "hail",
-						"icon": "snow",
-						"translation_fr": "grêle"
-					},
-					"18": {
-						"description": "sleet",
-						"icon": "sleet",
-						"translation_fr": "neige fondue"
-					},
-					"19": {
-						"description": "dust",
-						"icon": "fog",
-						"translation_fr": "poussière"
-					},
-					"20": {
-						"description": "foggy",
-						"icon": "fog",
-						"translation_fr": "brumeux"
-					},
-					"21": {
-						"description": "haze",
-						"icon": "fog",
-						"translation_fr": "brume"
-					},
-					"22": {
-						"description": "smoky",
-						"icon": "fog",
-						"translation_fr": "brouillard"
-					},
-					"23": {
-						"description": "blustery",
-						"icon": "wind",
-						"translation_fr": "rafales de vent"
-					},
-					"24": {
-						"description": "windy",
-						"icon": "wind",
-						"translation_fr": "venteux"
-					},
-					"25": {
-						"description": "cold",
-						"icon": "",
-						"translation_fr": "froid"
-					},
-					"26": {
-						"description": "cloudy",
-						"icon": "cloud",
-						"translation_fr": "nuageux"
-					},
-					"27": {
-						"description": "mostly cloudy",
-						"icon": "cloud moon",
-						"translation_fr": "nuageux"
-					},
-					"28": {
-						"description": "mostly cloudy",
-						"icon": "cloud sun",
-						"translation_fr": "nuageux"
-					},
-					"29": {
-						"description": "partly cloudy",
-						"icon": "cloud moon",
-						"translation_fr": "partiellement ensoleillé"
-					},
-					"30": {
-						"description": "partly cloudy",
-						"icon": "cloud sun",
-						"translation_fr": "partiellement nuageux"
-					},
-					"31": {
-						"description": "clear",
-						"icon": "moon",
-						"translation_fr": "clair"
-					},
-					"32": {
-						"description": "sunny",
-						"icon": "sun",
-						"translation_fr": "ensoleillé"
-					},
-					"33": {
-						"description": "fair",
-						"icon": "moon",
-						"translation_fr": "clair"
-					},
-					"34": {
-						"description": "fair",
-						"icon": "sun",
-						"translation_fr": "clair"
-					},
-					"35": {
-						"description": "mixed rain and hail",
-						"icon": "rain",
-						"translation_fr": "pluie mélangée et grêle"
-					},
-					"36": {
-						"description": "hot",
-						"icon": "sun",
-						"translation_fr": "chaud"
-					},
-					"37": {
-						"description": "isolated thunderstorms",
-						"icon": "wind",
-						"translation_fr": "orages isolés"
-					},
-					"38": {
-						"description": "scattered thunderstorms",
-						"icon": "wind",
-						"translation_fr": "orages dispersés"
-					},
-					"39": {
-						"description": "scattered thunderstorms",
-						"icon": "wind",
-						"translation_fr": "orages dispersés"
-					},
-					"40": {
-						"description": "scattered showers",
-						"icon": "wind",
-						"translation_fr": "averses éparses"
-					},
-					"41": {
-						"description": "heavy snow",
-						"icon": "snow",
-						"translation_fr": "beaucoup de neige"
-					},
-					"42": {
-						"description": "scattered snow showers",
-						"icon": "snow",
-						"translation_fr": "averses de neige dispersées"
-					},
-					"43": {
-						"description": "heavy snow",
-						"icon": "snow",
-						"translation_fr": "beaucoup de neige"
-					},
-					"44": {
-						"description": "partly cloudy",
-						"icon": "cloud",
-						"translation_fr": "partiellement nuageux"
-					},
-					"45": {
-						"description": "thundershowers",
-						"icon": "rain",
-						"translation_fr": "tempêtes de neige"
-					},
-					"46": {
-						"description": "snow showers",
-						"icon": "snow",
-						"translation_fr": "averses de neige"
-					},
-					"47": {
-						"description": "isolated thundershowers",
-						"icon": "wind",
-						"translation_fr": "orages isolés"
-					},
-					"3200": {
-						"description": "not available",
-						"icon": "moon",
-						"translation_fr": "indisponible"
-					}
-				};
 
 				var current_temperature = weather.query.results.channel.item.condition.temp;
 				var current_conditionCode = weather.query.results.channel.item.condition.code;
@@ -500,6 +253,7 @@ function calendarRequest() {
 		menuCalendar = document.getElementById('calendarMenu'),
 		xmlhttp = new XMLHttpRequest();
 	xmlhttp.open('GET', calendarPrivateURL, true);
+	xmlhttp.setRequestHeader("Authorization", "Basic " + btoa(calendarAndMailLogin + ":" + calendarAndMailPassword));
 	xmlhttp.onreadystatechange = function () {
 		if (xmlhttp.readyState == 4) {
 			if (xmlhttp.status == 200) {
@@ -540,9 +294,10 @@ function calendarRequest() {
 				events.sort(function (a, b) {
 					return (a.startDate > b.startDate) ? 1 : ((b.startDate > a.startDate) ? -1 : 0);
 				});
-
 				for (var i = 0; i < Math.min(events.length, 10); i++) {
-					menuCalendar.innerHTML += '<li><a class="tab tab1" href="">' + events[i].summary + '</a></li>';
+					if (events[i]) {
+						menuCalendar.innerHTML += '<li><a class="tab tab1" href="">' + events[i].summary + '</a></li>';
+					}
 				}
 			}
 		}
@@ -566,6 +321,9 @@ function add_rss() {
 function restoreOptionsCalendarRSSRequest() {
 	chrome.storage.sync.get({
 		calendarPrivateURL: '',
+		calendarAndMailLogin: '',
+		calendarAndMailPassword: '',
+		checkBoxUseIMAP: false,
 		displayPrecipitations: true,
 		displayFahrenheit: false,
 		rssSources: [chrome.i18n.getMessage("optionsDefaultRSSURL")],
@@ -573,6 +331,9 @@ function restoreOptionsCalendarRSSRequest() {
 		rssNbs: [5]
 	}, function (items) {
 		calendarPrivateURL = items.calendarPrivateURL;
+		calendarAndMailLogin = items.calendarAndMailLogin;
+		calendarAndMailPassword = items.calendarAndMailPassword;
+		checkBoxUseIMAP = items.checkBoxUseIMAP;
 		displayPrecipitations = items.displayPrecipitations;
 		displayFahrenheit = items.displayFahrenheit;
 		calendarRequest();
@@ -609,7 +370,7 @@ function bindsClickEventsForOpeningTabs() {
 
 function resetMousetraps() {
 	// Binds click events for opening tabs and background click to close
-	let parents = document.querySelectorAll('.parents');
+	let parents = document.querySelectorAll('.parent');
 	Array.prototype.forEach.call(parents, function (el, i) {
 		el.classList.remove('active');
 	});
@@ -622,7 +383,7 @@ function resetMousetraps() {
 
 // Initializes everything on page load
 
-let calendarPrivateURL, displayPrecipitations, displayFahrenheit;
+let calendarPrivateURL, calendarAndMailLogin, calendarAndMailPassword, checkBoxUseIMAP, displayPrecipitations, displayFahrenheit;
 
 localizeHtmlPage();
 startTime();
