@@ -112,6 +112,7 @@ function geolocWeather() {
 // Generate snow/rain with canvas tag
 // https://github.com/HermannBjorgvin/SnowJs
 function precipitate(type) {
+	console.log('precipitate');
 	var canvas = document.getElementById("snow");
 	var ctx = canvas.getContext("2d");
 	var flakeArray = [];
@@ -136,7 +137,7 @@ function precipitate(type) {
 		ctx.beginPath();
 		var random = MyMath.random();
 		var distance = .05 + .95 * random;
-		flake = {};
+		let flake = {};
 		flake.x = 1.5 * canvas.width * MyMath.random() - .5 * canvas.width;
 		flake.y = -9;
 		flake.velX = 2 * distance * (MyMath.random() / 2 + .5);
@@ -155,7 +156,7 @@ function precipitate(type) {
 			ctx.fill()
 		};
 		flakeArray.push(flake);
-		for (b = 0; b < flakeArray.length; b++) {
+		for (let b = 0; b < flakeArray.length; b++) {
 			flakeArray[b].y > canvas.height ? flakeArray.splice(b, 1) : flakeArray[b].update()
 		}
 	}, 16);
@@ -203,6 +204,61 @@ function gmailRequest() {
 	xmlhttp.send(null);
 }
 
+// Connects to SOGO Groupware
+function sogoRequest() {
+	// Save SOGo cookies
+	chrome.cookies.getAll({ domain: sogoDomain }, function (cookies) {
+		fetch('https://mail.ninico.fr/SOGo/connect', {
+			method: 'post',
+			body: `{"userName":"${calendarAndMailLogin}","password":"${calendarAndMailPassword}","rememberLogin":0}`,
+			headers: {
+				"Content-Type": "application/json"
+			},
+			credentials: 'include'
+		}).then(response => {
+			fetch(sogoMailBoxURL, {
+				method: 'post',
+				body: { "sortingAttributes": { "sort": "arrival", "asc": 0 } },
+				credentials: 'include'
+			}).then(response => response.json())
+				.then(mails => {
+					const enteteMails = document.getElementById('mails');
+					const menuMails = document.getElementById('mailsMenu');
+					const count = mails.headers.length - 1;
+					const plural = (count > 1) ? ('s') : ('');
+
+					if (count == 0) {
+						enteteMails.innerHTML = chrome.i18n.getMessage("noMail");
+						enteteMails.href = sogoMailBoxURL;
+					} else {
+						for (let i = 1; i < count; i++) {
+							const entryTitle = mails.headers[i][3],
+								author = mails.headers[i][4][0],
+								entryDate = mails.headers[i][7];
+							menuMails.innerHTML += '<li><a class="tab tab1">' + entryDate + ' - ' + entryTitle + ' - ' + author.name + '</a></li>';
+						}
+						if (chrome.i18n.getMessage("@@ui_locale") == 'fr') {
+							enteteMails.innerHTML = count + " mail" + plural + " non lu" + plural;
+						} else {
+							enteteMails.innerHTML = count + " unread" + " mail" + plural;
+						}
+						enteteMails.href = "javascript:void(0)";
+					}
+					document.title = document.title + " - " + count + " mail" + plural;
+					// Restore SOGo cookies
+					for (var i = 0; i < cookies.length; i++) {
+						cookies[i].url = 'https://' + cookies[i].domain;
+						delete cookies[i].domain;
+						delete cookies[i].hostOnly;
+						delete cookies[i].session;
+						console.log(cookies[i]);
+						chrome.cookies.set(cookies[i]);
+					}
+				}).catch(err => console.log(err))
+		}).catch(err => console.log(err));
+	});
+}
+
 // Lecture d'un flux RSS
 function rssRequest(nomElement, url, title, nb) {
 	var
@@ -245,7 +301,7 @@ function rssRequest(nomElement, url, title, nb) {
 	xmlhttp.send(null);
 }
 
-// Ouverture d'un calendrier google
+// Ouverture d'un calendrier
 function calendarRequest() {
 
 	var
@@ -323,7 +379,8 @@ function restoreOptionsCalendarRSSRequest() {
 		calendarPrivateURL: '',
 		calendarAndMailLogin: '',
 		calendarAndMailPassword: '',
-		checkBoxUseIMAP: false,
+		checkBoxUseSOGO: false,
+		sogoMailBoxURL: '',
 		displayPrecipitations: true,
 		displayFahrenheit: false,
 		rssSources: [chrome.i18n.getMessage("optionsDefaultRSSURL")],
@@ -333,7 +390,11 @@ function restoreOptionsCalendarRSSRequest() {
 		calendarPrivateURL = items.calendarPrivateURL;
 		calendarAndMailLogin = items.calendarAndMailLogin;
 		calendarAndMailPassword = items.calendarAndMailPassword;
-		checkBoxUseIMAP = items.checkBoxUseIMAP;
+		checkBoxUseSOGO = items.checkBoxUseSOGO;
+		sogoMailBoxURL = items.sogoMailBoxURL;
+		let sogoURL = new URL(sogoMailBoxURL);
+		sogoAuthURL = 'https://' + sogoURL.hostname + '/SOGo/connect';
+		sogoDomain = sogoURL.hostname;
 		displayPrecipitations = items.displayPrecipitations;
 		displayFahrenheit = items.displayFahrenheit;
 		calendarRequest();
@@ -345,6 +406,7 @@ function restoreOptionsCalendarRSSRequest() {
 			rssRequest('rss' + i.toString(), items.rssSources[i], items.rssTitles[i], items.rssNbs[i]);
 		}
 		bindsClickEventsForOpeningTabs();
+		checkBoxUseSOGO ? sogoRequest() : gmailRequest();
 	});
 }
 
@@ -383,15 +445,17 @@ function resetMousetraps() {
 
 // Initializes everything on page load
 
-let calendarPrivateURL, calendarAndMailLogin, calendarAndMailPassword, checkBoxUseIMAP, displayPrecipitations, displayFahrenheit;
+let calendarPrivateURL, calendarAndMailLogin, calendarAndMailPassword, checkBoxUseSOGO, sogoMailBoxURL, sogoAuthURL, sogoDomain, displayPrecipitations, displayFahrenheit;
 
-localizeHtmlPage();
-startTime();
-randomQuote();
-randomBackground();
-gmailRequest();
 
-restoreOptionsCalendarRSSRequest();
+document.addEventListener('DOMContentLoaded', function () {
+	localizeHtmlPage();
+	startTime();
+	randomQuote();
+	randomBackground();
 
-// Binds click events to close cells and keyboard modal
-document.getElementById('background').addEventListener('click', resetMousetraps, false);
+	restoreOptionsCalendarRSSRequest();
+
+	// Binds click events to close cells and keyboard modal
+	document.getElementById('background').addEventListener('click', resetMousetraps, false);
+});

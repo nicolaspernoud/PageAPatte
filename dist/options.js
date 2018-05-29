@@ -5,7 +5,8 @@ function save_options() {
 	var calendarPrivateURL = document.getElementById('calendarPrivateURL').value;
 	var calendarAndMailLogin = document.getElementById('calendarAndMailLogin').value;
 	var calendarAndMailPassword = document.getElementById('calendarAndMailPassword').value;
-	var checkBoxUseIMAP = document.getElementById('checkBoxUseIMAP').checked;
+	var sogoMailBoxURL = document.getElementById('sogoMailBoxURL').value;
+	var checkBoxUseSOGO = document.getElementById('checkBoxUseSOGO').checked;
     var displayPrecipitations = document.getElementById('checkBoxPrecipitations').checked;
 	var displayFahrenheit = document.getElementById('checkBoxFahrenheit').checked;
 
@@ -24,7 +25,8 @@ function save_options() {
 		calendarPrivateURL: calendarPrivateURL,
 		calendarAndMailLogin: calendarAndMailLogin,
 		calendarAndMailPassword: calendarAndMailPassword,
-		checkBoxUseIMAP: checkBoxUseIMAP,
+		sogoMailBoxURL: sogoMailBoxURL,
+		checkBoxUseSOGO: checkBoxUseSOGO,
         displayPrecipitations: displayPrecipitations,
 		displayFahrenheit: displayFahrenheit,
 		rssSources: rssSources,
@@ -47,7 +49,8 @@ function restore_options() {
 		calendarPrivateURL: '',
 		calendarAndMailLogin: '',
 		calendarAndMailPassword: '',
-		checkBoxUseIMAP: false,
+		sogoMailBoxURL: '',
+		checkBoxUseSOGO: false,
         displayPrecipitations: true,
 		displayFahrenheit: false,
 		rssSources: [chrome.i18n.getMessage("optionsDefaultRSSURL")],
@@ -55,6 +58,10 @@ function restore_options() {
         rssNbs: [5],
 	}, function (items) {
 		document.getElementById('calendarPrivateURL').value = items.calendarPrivateURL;
+		document.getElementById('calendarAndMailLogin').value = items.calendarAndMailLogin;
+		document.getElementById('calendarAndMailPassword').value = items.calendarAndMailPassword;
+		document.getElementById('sogoMailBoxURL').value = items.sogoMailBoxURL;
+		document.getElementById('checkBoxUseSOGO').checked = items.checkBoxUseSOGO;
         document.getElementById('checkBoxPrecipitations').checked = items.displayPrecipitations;
 		document.getElementById('checkBoxFahrenheit').checked = items.displayFahrenheit;
 		for (var i = 0; i < items.rssSources.length; i++) {

@@ -42,16 +42,19 @@
         "message": "make a donation (with Paypal) !"
     },
     "optionsCalendarPrivateURL": {
-        "message": "URL of calendar ics feed (to get it, go to https://calendar.google.com et and get your calendar private url) :"
+        "message": "URL of calendar ics feed :"
     },
     "optionsCalendarAndMailLogin": {
-        "message": "If needed, login to calendar and mail (imap) service :"
+        "message": "If needed, login to calendar and mail (SOGo) service :"
     },
     "optionsCalendarAndMailPassword": {
-        "message": "If needed, password to calendar and mail (imap) service :"
+        "message": "If needed, password to calendar and mail (SOGo) service :"
     },
-    "optionsCheckBoxUseIMAP": {
-        "message": "Use IMAP instead of GMail atom feed to fetch mails"
+    "optionscheckBoxUseSOGO": {
+        "message": "Use SOGo Groupware instead of GMail atom feed to fetch mails"
+    },
+    "optionsSogoMailBoxURL": {
+        "message": "SOGO Mailbox URL (https://mail.****.***/SOGo/so/****/folderINBOX/view)"
     },
     "optionsRssSource": {
         "message": "RSS feed URL :"

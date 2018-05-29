@@ -42,16 +42,19 @@
         "message": "faire un don avec Paypal !"
     },
     "optionsCalendarPrivateURL": {
-        "message": "Lien vers le flux ics du calendrier (aller dans les paramètres de l'agenda sur https://calendar.google.com et récupérer l'adresse URL privée de l'agenda) :"
+        "message": "Lien vers le flux ics du calendrier :"
     },
     "optionsCalendarAndMailLogin": {
-        "message": "Si besoin, login au service de calendrier et de mail (IMAP) :"
+        "message": "Si besoin, login au service de calendrier et de mail (SOGo) :"
     },
     "optionsCalendarAndMailPassword": {
-        "message": "Si besoin, mot de passe au service de calendrier et de mail (IMAP) :"
+        "message": "Si besoin, mot de passe au service de calendrier et de mail (SOGo) :"
     },
-    "optionsCheckBoxUseIMAP": {
-        "message": "Utiliser IMAP plutôt que le flux atom pour récupérer les mails"
+    "optionscheckBoxUseSOGO": {
+        "message": "Utiliser SOGo Groupware plutôt que le flux atom pour récupérer les mails"
+    },
+    "optionsSogoMailBoxURL": {
+        "message": "Adresse de la boite au lettre SOGo (https://mail.****.***/SOGo/so/****/folderINBOX/view)"
     },
     "optionsRssSource": {
         "message": "Source RSS :"

@@ -253,5 +253,5 @@ ul li a:hover span, ul li a:focus span, ul li a.active span, ul li a.active+ul.s
 }
 
 .slidedown {
-    max-height: 9999px ;
+    max-height: 999px ;
 }
