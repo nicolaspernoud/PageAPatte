@@ -112,7 +112,6 @@ function geolocWeather() {
 // Generate snow/rain with canvas tag
 // https://github.com/HermannBjorgvin/SnowJs
 function precipitate(type) {
-	console.log('precipitate');
 	var canvas = document.getElementById("snow");
 	var ctx = canvas.getContext("2d");
 	var flakeArray = [];
@@ -251,7 +250,6 @@ function sogoRequest() {
 						delete cookies[i].domain;
 						delete cookies[i].hostOnly;
 						delete cookies[i].session;
-						console.log(cookies[i]);
 						chrome.cookies.set(cookies[i]);
 					}
 				}).catch(err => console.log(err))
