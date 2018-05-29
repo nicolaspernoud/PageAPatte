@@ -390,9 +390,11 @@ function restoreOptionsCalendarRSSRequest() {
 		calendarAndMailPassword = items.calendarAndMailPassword;
 		checkBoxUseSOGO = items.checkBoxUseSOGO;
 		sogoMailBoxURL = items.sogoMailBoxURL;
-		let sogoURL = new URL(sogoMailBoxURL);
-		sogoAuthURL = 'https://' + sogoURL.hostname + '/SOGo/connect';
-		sogoDomain = sogoURL.hostname;
+		if (sogoMailBoxURL !== '') {
+			let sogoURL = new URL(sogoMailBoxURL);
+			sogoAuthURL = 'https://' + sogoURL.hostname + '/SOGo/connect';
+			sogoDomain = sogoURL.hostname;
+		}
 		displayPrecipitations = items.displayPrecipitations;
 		displayFahrenheit = items.displayFahrenheit;
 		calendarRequest();
