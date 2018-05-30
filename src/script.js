@@ -239,23 +239,25 @@ function sogoRequest() {
 
 					const enteteMails = document.getElementById('mails');
 					const menuMails = document.getElementById('mailsMenu');
-					const count = mails.headers.length - 1;
+					mails.headers.splice(0, 1);
+					const formattedMails = mails.headers.sort(function (a, b) { return (a[7].includes(':') && b[7].includes('-') ? 1 : b[7].includes(':') && a[7].includes('-') ? -1 : a[7] > b[7]) ? 1 : ((b[7] > a[7]) ? -1 : 0); });
+					const count = formattedMails.length;
 					const plural = (count > 1) ? ('s') : ('');
 
 					if (count == 0) {
 						enteteMails.innerHTML = chrome.i18n.getMessage("noMail");
 						enteteMails.href = sogoMailBoxURL;
 					} else {
-						for (let i = 1; i < count; i++) {
-							const entryTitle = mails.headers[i][3],
-								author = mails.headers[i][4][0],
-								entryDate = mails.headers[i][7];
+						for (let i = 0; i < count; i++) {
+							const entryTitle = formattedMails[i][3],
+								author = formattedMails[i][4][0],
+								entryDate = formattedMails[i][7];
 							menuMails.innerHTML += '<li><a class="tab tab1">' + entryDate + ' - ' + entryTitle + ' - ' + author.name + '</a></li>';
 						}
 						if (chrome.i18n.getMessage("@@ui_locale") == 'fr') {
-							enteteMails.innerHTML = count + " mail" + plural + " non lu" + plural;
+							enteteMails.innerHTML = count + " mail" + plural;
 						} else {
-							enteteMails.innerHTML = count + " unread" + " mail" + plural;
+							enteteMails.innerHTML = count + " mail" + plural;
 						}
 						enteteMails.href = "javascript:void(0)";
 					}
