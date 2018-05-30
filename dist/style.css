@@ -245,7 +245,7 @@ ul li a:hover span, ul li a:focus span, ul li a.active span, ul li a.active+ul.s
 .slideup, .slidedown {
     max-height: 0;
     overflow-y: hidden;
-    transition: 0.5s;
+    transition: 0.3s ease-in-out;
 }
 
 .slideup {
@@ -253,5 +253,5 @@ ul li a:hover span, ul li a:focus span, ul li a.active span, ul li a.active+ul.s
 }
 
 .slidedown {
-    max-height: 999px ;
+    max-height: 540px;
 }

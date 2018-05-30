@@ -221,6 +221,22 @@ function sogoRequest() {
 				credentials: 'include'
 			}).then(response => response.json())
 				.then(mails => {
+
+					// Delete temp SOGo cookies
+					chrome.cookies.getAll({ domain: sogoDomain }, function (tmpCookies) {
+						for (var i = 0; i < tmpCookies.length; i++) {
+							chrome.cookies.remove({ url: 'https://' + tmpCookies[i].domain + tmpCookies[i].path, name: tmpCookies[i].name });
+						}
+						// Restore SOGo cookies
+						for (var i = 0; i < cookies.length; i++) {
+							cookies[i].url = 'https://' + cookies[i].domain;
+							delete cookies[i].domain;
+							delete cookies[i].hostOnly;
+							delete cookies[i].session;
+							chrome.cookies.set(cookies[i]);
+						}
+					});
+
 					const enteteMails = document.getElementById('mails');
 					const menuMails = document.getElementById('mailsMenu');
 					const count = mails.headers.length - 1;
@@ -244,14 +260,6 @@ function sogoRequest() {
 						enteteMails.href = "javascript:void(0)";
 					}
 					document.title = document.title + " - " + count + " mail" + plural;
-					// Restore SOGo cookies
-					for (var i = 0; i < cookies.length; i++) {
-						cookies[i].url = 'https://' + cookies[i].domain;
-						delete cookies[i].domain;
-						delete cookies[i].hostOnly;
-						delete cookies[i].session;
-						chrome.cookies.set(cookies[i]);
-					}
 				}).catch(err => console.log(err))
 		}).catch(err => console.log(err));
 	});
@@ -415,13 +423,22 @@ function bindsClickEventsForOpeningTabs() {
 	var elements = document.querySelectorAll('.item');
 	Array.prototype.forEach.call(elements, function (el, i) {
 		el.addEventListener("click", function () {
+			// Fold all submenus
+			let subMenus = document.querySelectorAll('.slidedown');
+			Array.prototype.forEach.call(subMenus, function (el, i) {
+				el.classList.remove('slidedown');
+				el.classList.add('slideup');
+			});
+
 			let parent = el.querySelector('.parent');
 			let subMenu = el.querySelector('.subMenu');
 			if (parent.classList.contains('active')) {
 				parent.classList.remove('active');
-				subMenu.classList.remove('slidedown');
-				subMenu.classList.add('slideup');
 			} else {
+				let parents = document.querySelectorAll('.active');
+				Array.prototype.forEach.call(parents, function (el, i) {
+					el.classList.remove('active');
+				});
 				parent.classList.add('active');
 				subMenu.classList.remove('slideup');
 				subMenu.classList.add('slidedown');
