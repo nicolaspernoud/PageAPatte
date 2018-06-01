@@ -69,7 +69,7 @@
         "message": "Ajouter un flux RSS"
     },
     "optionsRemoveFlux": {
-        "message": "Supprimer un flux RSS"
+        "message": "Supprimer le flux RSS"
     },
     "optionsSave": {
         "message": "Enregistrer"

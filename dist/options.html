@@ -4,54 +4,87 @@
 <head>
     <title>Options</title>
     <style>
-        body: {padding: 10px;}
-		input[type="text"] {width: 100%;}
+        body {
+            width: 600px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        body button {
+            margin-bottom: 10px !important;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-and-label {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .rss {
+            border: 1px solid #ccc !important;
+            border-radius: 16px;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        #rss0 button {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
 
-    <p>__MSG_optionsDisclaimerPart1__<a id="don" href="https://paypal.me/NicolasPernoud">__MSG_optionsDisclaimerPart2__</a></p>
-    <hr size="2" noshade>
-    <div id="status" style="color: red;"></div>
-    <hr size="2" noshade>
-    <label for="calendarPrivateURL">__MSG_optionsCalendarPrivateURL__</label></br>
+    <p>__MSG_optionsDisclaimerPart1__
+        <a id="don" href="https://paypal.me/NicolasPernoud">__MSG_optionsDisclaimerPart2__</a>
+    </p>
+    <label for="calendarPrivateURL">__MSG_optionsCalendarPrivateURL__</label>
     <input type="text" id="calendarPrivateURL" name="calendarPrivateURL" />
-    <label for="sogoMailBoxURL">__MSG_optionsSogoMailBoxURL__</label></br>
+    <label for="sogoMailBoxURL">__MSG_optionsSogoMailBoxURL__</label>
     <input type="text" id="sogoMailBoxURL" name="sogoMailBoxURL" />
-    <input type="checkbox" id="checkBoxUseSOGO" name="checkBoxUseSOGO" />
-    <label for="checkBoxUseSOGO">__MSG_optionscheckBoxUseSOGO__</label></br>
-    <label for="calendarAndMailLogin">__MSG_optionsCalendarAndMailLogin__</label></br>
+    <div class="checkbox-and-label">
+        <input type="checkbox" id="checkBoxUseSOGO" name="checkBoxUseSOGO" />
+        <label for="checkBoxUseSOGO">__MSG_optionscheckBoxUseSOGO__</label>
+    </div>
+    <label for="calendarAndMailLogin">__MSG_optionsCalendarAndMailLogin__</label>
     <input type="text" id="calendarAndMailLogin" name="calendarAndMailLogin" />
-    <label for="calendarAndMailPassword">__MSG_optionsCalendarAndMailPassword__</label></br>
+    <label for="calendarAndMailPassword">__MSG_optionsCalendarAndMailPassword__</label>
     <input type="text" id="calendarAndMailPassword" name="calendarAndMailPassword" />
-    <hr size="2" noshade>
 
     <div id="rsss">
-        <div id="rss0">
-            <label for="rssSource">__MSG_optionsRssSource__</label></br>
-            <input type="text" class="rssSource" name="rssSource" /></br>
-            <label for="rssTitle">__MSG_optionsRssTitle__</label></br>
+        <div id="rss0" class="rss">
+            <label for="rssSource">__MSG_optionsRssSource__</label>
+            <input type="text" class="rssSource" name="rssSource" />
+            <label for="rssTitle">__MSG_optionsRssTitle__</label>
             <input type="text" class="rssTitle" name="rssTitle" />
-            <label for="rssNb">__MSG_optionsRssNb__</label></br>
+            <label for="rssNb">__MSG_optionsRssNb__</label>
             <input class="rssNb" name="rssNb" type="number" min="1" max="100">
-            <hr size="1" noshade>
+            <button class="removeFlux">__MSG_optionsRemoveFlux__</button>
         </div>
     </div>
 
-    <hr size="2" noshade>
-    <input type="checkbox" id="checkBoxPrecipitations" name="checkBoxPrecipitations" />
-    <label for="checkBoxPrecipitations">__MSG_optionsCheckBoxPrecipitations__</label></br>
-    <input type="checkbox" id="checkBoxFahrenheit" name="checkBoxFahrenheit" />
-    <label for="checkBoxFahrenheit">__MSG_optionsCheckBoxFahrenheit__</label>
-    <hr size="2" noshade>
-
     <button id="addFlux">__MSG_optionsAddFlux__</button>
-    <button id="removeFlux">__MSG_optionsRemoveFlux__</button>
-    <button id="save">__MSG_optionsSave__</button>
-    <script src="localizeHTML.js"></script>
-    <script src="options.js"></script>
+
+    <div class="checkbox-and-label">
+        <input type="checkbox" id="checkBoxPrecipitations" name="checkBoxPrecipitations" />
+        <label for="checkBoxPrecipitations">__MSG_optionsCheckBoxPrecipitations__</label>
+    </div>
+    <div class="checkbox-and-label">
+        <input type="checkbox" id="checkBoxFahrenheit" name="checkBoxFahrenheit" />
+        <label for="checkBoxFahrenheit">__MSG_optionsCheckBoxFahrenheit__</label>
+    </div>
+
+    <button id="save" style="font-weight: bold;">__MSG_optionsSave__</button>
 
 </body>
+
+<script src="localizeHTML.js"></script>
+<script src="options.js"></script>
 
 </html>
