@@ -1,6 +1,5 @@
 import { UnsplashPhoto } from 'unsplash-source-js';
 import * as ICAL from 'ical.js';
-import * as weatherRefObject from './weatherRef.json';
 
 // Finds current time and date, formats it properly
 function startTime() {
@@ -49,63 +48,44 @@ function randomBackground(time) { // daily, weekly, or every time
 }
 
 // Gets weather for requested location, appends to page
-function getWeather(location) {
-	var weatherLanguage = chrome.i18n.getMessage("@@ui_locale").substring(0, 2);
-	var degUnit = displayFahrenheit ? 'F' : 'C';
-	var YQLrequest = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"(" + location + ")\") and u=\"" + degUnit + "\"";
-	var YahooWeatherURL = "https://query.yahooapis.com/v1/public/yql?q=" + YQLrequest + "&format=json";
+function getWeather(lat, long) {
+	let apiKey = "204322f15d985e7ce1fa04d8ac7a717d"
+	let weatherLanguage = chrome.i18n.getMessage("@@ui_locale");
+	let degUnit = displayFahrenheit ? 'F' : 'C';
+	let units = displayFahrenheit ? 'imperial' : 'metric';
+	let openweathermapURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&units=${units}&lang=${weatherLanguage}&appid=${apiKey}`
 
-	var xmlhttp = new XMLHttpRequest();
+	fetch(openweathermapURL, {
+	}).then(response => response.json())
+		.then(weather => {
+			let current_temperature = Math.round(weather.list[0].main.temp);
+			let current_weatherIcon = "http://openweathermap.org/img/w/" + weather.list[0].weather[0].icon + ".png";
+			let current_weatherCaption = weather.list[0].weather[0].description;
+			let forecast_weatherCaption = `${chrome.i18n.getMessage("@@ui_locale") == 'fr' ? "à venir : " : "forecast : "}${weather.list[1].weather[0].description}`;
 
-	xmlhttp.open('GET', YahooWeatherURL, true);
-	xmlhttp.onreadystatechange = function () {
-		if (xmlhttp.readyState == 4) {
-			if (xmlhttp.status == 200) {
-				var weather = JSON.parse(xmlhttp.responseText);
-
-				var current_temperature = weather.query.results.channel.item.condition.temp;
-				var current_conditionCode = weather.query.results.channel.item.condition.code;
-				var forecast_conditionCode = weather.query.results.channel.item.forecast["0"].code;
-
-				var current_weatherIcon = weatherRefObject[current_conditionCode].icon;
-
-				var current_weatherCaption;
-				var forecast_weatherCaption;
-
-				if (chrome.i18n.getMessage("@@ui_locale") == 'fr') {
-					current_weatherCaption = weatherRefObject[current_conditionCode].translation_fr;
-					forecast_weatherCaption = "à venir : " + weatherRefObject[forecast_conditionCode].translation_fr;
-				} else {
-					current_weatherCaption = weatherRefObject[current_conditionCode].description;
-					forecast_weatherCaption = "forecast : " + weatherRefObject[forecast_conditionCode].description;
-				}
-
-				if (displayPrecipitations == true) {
-					var text_with_snow = ["snow"];
-					var text_with_rain = ["sleet", "rain", "shower", "hail"];
-					if (new RegExp(text_with_snow.join("|")).test(weather.query.results.channel.item.condition.text.toLowerCase())) {
-						precipitate('snow');
-					} else if (new RegExp(text_with_rain.join("|")).test(weather.query.results.channel.item.condition.text.toLowerCase()))
-						precipitate('rain');
-				}
-
-				document.getElementById('weather').innerHTML = '<a id="weatherlink" href="' + weather.query.results.channel.item.link + '"><span class="climacon ' + current_weatherIcon + '"></span> ' + current_weatherCaption + ', ' + current_temperature + '&deg;' + degUnit + '</a>';
-				document.getElementById('details').innerHTML = forecast_weatherCaption;
+			if (displayPrecipitations == true) {
+				let text_with_snow = ["snow"];
+				let text_with_rain = ["sleet", "rain", "shower", "hail"];
+				if (new RegExp(text_with_snow.join("|")).test(weather.list[0].weather[0].main.toLowerCase())) {
+					precipitate('snow');
+				} else if (new RegExp(text_with_rain.join("|")).test(weather.list[0].weather[0].main.toLowerCase()))
+					precipitate('rain');
 			}
-		}
-	};
-	xmlhttp.send(null);
+
+			document.getElementById('weather').innerHTML = `<img id="wicon" src="${current_weatherIcon}" alt="Weather icon">${current_weatherCaption}, ${current_temperature} &deg;${degUnit}`;
+			document.getElementById('details').innerHTML = forecast_weatherCaption;
+		})
 }
 
 // Geolocates the user, otherwise defaulting to Lyon
 function geolocWeather() {
 	if ('geolocation' in navigator) {
 		navigator.geolocation.getCurrentPosition(function (position) {
-			getWeather(position.coords.latitude + ',' + position.coords.longitude);
+			getWeather(position.coords.latitude, position.coords.longitude);
 		});
 
 	} else {
-		getWeather('45.7583, 4.8554');
+		getWeather('45.7583', '4.8554');
 	}
 }
 

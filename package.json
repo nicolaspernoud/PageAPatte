@@ -1,6 +1,6 @@
 {
   "name": "page-a-patte",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Display a custom start page with random beautiful wallpaper, weather, calendar events, unread mails, and as many rss feeds as you like.",
   "private": true,
   "dependencies": {

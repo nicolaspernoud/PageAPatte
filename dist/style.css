@@ -97,6 +97,7 @@ p {
     font-size: smaller;
     width: 100%;
     bottom: 1%;
+    z-index: -1;
 }
 
 #modal {
@@ -187,59 +188,9 @@ ul li a:hover span, ul li a:focus span, ul li a.active span, ul li a.active+ul.s
     }
 }
 
-@font-face {
-    font-family: 'Climacons-Font';
-    src: url("climacons/climacons-webfont.eot");
-    src: url("climacons/climacons-webfont.eot?#iefix") format("embedded-opentype"), url("climacons/climacons-webfont.svg#Climacons-Font") format("svg"), url("climacons/climacons-webfont.woff") format("woff"), url("climacons/climacons-webfont.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-.climacon:before {
-    font-family: 'Climacons-Font';
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-}
-
-.climacon.cloud:before {
-    content: "\e000";
-}
-
-.climacon.cloud.sun:before {
-    content: "\e001";
-}
-
-.climacon.cloud.moon:before {
-    content: "\e002";
-}
-
-.climacon.rain:before, .climacon.rain.cloud:before {
-    content: "\e003";
-}
-
-.climacon.sleet:before, .climacon.sleet.cloud:before {
-    content: "\e00f";
-}
-
-.climacon.snow:before, .climacon.snow.cloud:before {
-    content: "\e018";
-}
-
-.climacon.fog:before, .climacon.fog.cloud:before {
-    content: "\e01b";
-}
-
-.climacon.wind:before {
-    content: "\e021";
-}
-
-.climacon.sun:before {
-    content: "\e028";
-}
-
-.climacon.moon:before {
-    content: "\e02d";
+#wicon {
+    top: 15px;
+    position: relative;
 }
 
 .slideup, .slidedown {

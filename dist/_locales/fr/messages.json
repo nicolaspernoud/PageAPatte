@@ -23,8 +23,8 @@
     "indexLoading": {
         "message": "Chargement..."
     },
-    "indexWaitingForDarkSky": {
-        "message": "Attente du service Yahoo Weather..."
+    "indexWaitingForWeather": {
+        "message": "Attente du service Météo..."
     },
     "indexLoadingMails": {
         "message": "Chargement des mails..."
