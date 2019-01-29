@@ -72,7 +72,7 @@ function getWeather(lat, long) {
 					precipitate('rain');
 			}
 
-			document.getElementById('weather').innerHTML = `<img id="wicon" src="${current_weatherIcon}" alt="Weather icon">${current_weatherCaption}, ${current_temperature} &deg;${degUnit}`;
+			document.getElementById('weather').innerHTML = `<img id="wicon" src="${current_weatherIcon}">${current_weatherCaption}, ${current_temperature} &deg;${degUnit}`;
 			document.getElementById('details').innerHTML = forecast_weatherCaption;
 		})
 }
