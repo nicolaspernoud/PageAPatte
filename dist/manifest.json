@@ -4,14 +4,8 @@
   "default_locale": "fr",
   "short_name": "PageAPatte",
   "description": "__MSG_extDescription__",
-  "version": "1.2.2.5",
-  "permissions": [
-    "geolocation",
-    "bookmarks",
-    "storage",
-    "<all_urls>",
-    "cookies"
-  ],
+  "version": "1.2.2.6",
+  "permissions": ["geolocation", "storage", "<all_urls>"],
   "options_ui": {
     "page": "options.html",
     "chrome_style": true
