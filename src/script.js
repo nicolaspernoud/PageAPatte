@@ -352,10 +352,7 @@ function calendarRequest() {
     menuCalendar = document.getElementById("calendarMenu"),
     xmlhttp = new XMLHttpRequest();
   xmlhttp.open("GET", calendarPrivateURL, true);
-  xmlhttp.setRequestHeader(
-    "Authorization",
-    "Basic " + btoa(calendarAndMailLogin + ":" + calendarAndMailPassword)
-  );
+  xmlhttp.withCredentials = true;
   xmlhttp.onreadystatechange = function () {
     if (xmlhttp.readyState == 4) {
       if (xmlhttp.status == 200) {
@@ -434,8 +431,6 @@ function restoreOptionsCalendarRSSRequest() {
   chrome.storage.sync.get(
     {
       calendarPrivateURL: "",
-      calendarAndMailLogin: "",
-      calendarAndMailPassword: "",
       checkBoxUseSOGO: false,
       sogoMailBoxURL: "",
       displayPrecipitations: true,
@@ -446,8 +441,6 @@ function restoreOptionsCalendarRSSRequest() {
     },
     function (items) {
       calendarPrivateURL = items.calendarPrivateURL;
-      calendarAndMailLogin = items.calendarAndMailLogin;
-      calendarAndMailPassword = items.calendarAndMailPassword;
       checkBoxUseSOGO = items.checkBoxUseSOGO;
       sogoMailBoxURL = items.sogoMailBoxURL;
       if (sogoMailBoxURL !== "") {
@@ -521,7 +514,6 @@ function resetMousetraps() {
 // Initializes everything on page load
 
 let calendarPrivateURL,
-  calendarAndMailLogin,
   calendarAndMailPassword,
   checkBoxUseSOGO,
   sogoMailBoxURL,
