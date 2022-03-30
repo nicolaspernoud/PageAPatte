@@ -1,5 +1,4 @@
-import { UnsplashPhoto } from "unsplash-source-js";
-import * as ICAL from "ical.js";
+//
 
 // Finds current time and date, formats it properly
 function startTime() {
@@ -17,12 +16,12 @@ function startTime() {
   var year = date[3];
   mins = mins < 10 ? "0" + mins : mins;
   secs = secs < 10 ? "0" + secs : secs;
-  document.getElementById("time").innerHTML = hour + ":" + mins + ":" + secs;
+  document.getElementById("time").innerText = hour + ":" + mins + ":" + secs;
   if (chrome.i18n.getMessage("@@ui_locale") == "fr") {
-    document.getElementById("date").innerHTML =
+    document.getElementById("date").innerText =
       weekday + " " + day + " " + month + " " + year;
   } else {
-    document.getElementById("date").innerHTML =
+    document.getElementById("date").innerText =
       weekday + ", " + month + " " + day + ", " + year;
   }
   var t = setTimeout(startTime, 500);
@@ -33,7 +32,7 @@ function randomQuote() {
   var quotes = chrome.i18n.getMessage("quotes").split("/");
   var quoted = chrome.i18n.getMessage("quotesAuthors").split("/");
   var randNumQuotes = Math.floor(Math.random() * quotes.length);
-  document.getElementById("quote").innerHTML =
+  document.getElementById("quote").innerText =
     "&ldquo;" +
     quotes[randNumQuotes] +
     "&rdquo; &mdash; " +
@@ -103,10 +102,10 @@ function getWeather(lat, long) {
           precipitate("rain");
       }
 
-      document.getElementById(
-        "weather"
-      ).innerHTML = `<img id="wicon" src="${current_weatherIcon}">${current_weatherCaption}, ${current_temperature} &deg;${degUnit}`;
-      document.getElementById("details").innerHTML = forecast_weatherCaption;
+      document.getElementById("weather").innerHTML = DOMPurify.sanitize(
+        `<img id="wicon" src="${current_weatherIcon}">${current_weatherCaption}, ${current_temperature} &deg;${degUnit}`
+      );
+      document.getElementById("details").innerText = forecast_weatherCaption;
     });
 }
 
@@ -191,38 +190,39 @@ function gmailRequest() {
           email = xmlDoc
             .getElementsByTagName("title")[0]
             .innerHTML.replace("Gmail - Inbox for ", ""),
-          count = xmlDoc.getElementsByTagName("fullcount")[0].innerHTML,
+          count = xmlDoc.getElementsByTagName("fullcount")[0].innerText,
           entries = xmlDoc.getElementsByTagName("entry"),
           entryList = email + ":\n",
           plural = count > 1 ? "s" : "";
 
         if (entries.length == 0) {
-          enteteMails.innerHTML = chrome.i18n.getMessage("noMail");
+          enteteMails.innerText = chrome.i18n.getMessage("noMail");
           enteteMails.href = "https://mail.google.com";
         } else {
           for (var i = 0; i < entries.length; i++) {
-            var entryTitle = entries[i].getElementsByTagName("title")[0]
-                .innerHTML,
+            var entryTitle =
+                entries[i].getElementsByTagName("title")[0].innerText,
               authorName = entries[i]
                 .getElementsByTagName("author")[0]
-                .getElementsByTagName("name")[0].innerHTML,
+                .getElementsByTagName("name")[0].innerText,
               entryURL = entries[i]
                 .getElementsByTagName("link")[0]
                 .getAttribute("href");
-            menuMails.innerHTML +=
+            menuMails.innerHTML += DOMPurify.sanitize(
               '<li><a class="tab tab1" href="' +
-              entryURL +
-              '">' +
-              entryTitle +
-              " - " +
-              authorName +
-              "</a></li>";
+                entryURL +
+                '">' +
+                entryTitle +
+                " - " +
+                authorName +
+                "</a></li>"
+            );
           }
           if (chrome.i18n.getMessage("@@ui_locale") == "fr") {
-            enteteMails.innerHTML =
+            enteteMails.innerText =
               count + " mail" + plural + " non lu" + plural;
           } else {
-            enteteMails.innerHTML = count + " unread" + " mail" + plural;
+            enteteMails.innerText = count + " unread" + " mail" + plural;
           }
           enteteMails.href = "javascript:void(0)";
         }
@@ -264,26 +264,27 @@ function sogoRequest() {
       const plural = count > 1 ? "s" : "";
 
       if (count == 0) {
-        enteteMails.innerHTML = chrome.i18n.getMessage("noMail");
+        enteteMails.innerText = chrome.i18n.getMessage("noMail");
         enteteMails.href = sogoMailBoxURL;
       } else {
         for (let i = 0; i < count; i++) {
           const entryTitle = formattedMails[i][3],
             author = formattedMails[i][4][0],
             entryDate = formattedMails[i][7];
-          menuMails.innerHTML +=
+          menuMails.innerHTML += DOMPurify.sanitize(
             '<li><a class="tab tab1">' +
-            entryDate +
-            " - " +
-            entryTitle +
-            " - " +
-            author.name +
-            "</a></li>";
+              entryDate +
+              " - " +
+              entryTitle +
+              " - " +
+              author.name +
+              "</a></li>"
+          );
         }
         if (chrome.i18n.getMessage("@@ui_locale") == "fr") {
-          enteteMails.innerHTML = count + " mail" + plural;
+          enteteMails.innerText = count + " mail" + plural;
         } else {
-          enteteMails.innerHTML = count + " mail" + plural;
+          enteteMails.innerText = count + " mail" + plural;
         }
         enteteMails.href = "javascript:void(0)";
       }
@@ -313,30 +314,35 @@ function rssRequest(nomElement, url, title, nb) {
         }
 
         if (title == "") {
-          title = xmlDoc.getElementsByTagName("title")[0].childNodes[0]
-            .nodeValue;
+          title =
+            xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
         }
 
-        enteteRSS.innerHTML = title;
+        enteteRSS.innerText = title;
 
         if (entries.length != 0) {
           for (var i = 0; i < Math.min(entries.length, nb); i++) {
-            var entryTitle = entries[i].getElementsByTagName("title")[0]
-              .childNodes[0].nodeValue;
+            var entryTitle =
+              entries[i].getElementsByTagName("title")[0].childNodes[0]
+                .nodeValue;
             try {
-              entryContent = entries[i].getElementsByTagName("content")[0]
-                .childNodes[0].nodeValue;
-              menuRSS.innerHTML +=
-                '<li><a class="tab" href="">' + entryContent + "</a></li>";
+              entryContent =
+                entries[i].getElementsByTagName("content")[0].childNodes[0]
+                  .nodeValue;
+              menuRSS.innerHTML += DOMPurify.sanitize(
+                '<li><a class="tab" href="">' + entryContent + "</a></li>"
+              );
             } catch (err) {
-              var entryURL = entries[i].getElementsByTagName("link")[0]
-                .childNodes[0].nodeValue;
-              menuRSS.innerHTML +=
+              var entryURL =
+                entries[i].getElementsByTagName("link")[0].childNodes[0]
+                  .nodeValue;
+              menuRSS.innerHTML += DOMPurify.sanitize(
                 '<li><a class="tab" href="' +
-                entryURL +
-                '">' +
-                entryTitle +
-                "</a></li>";
+                  entryURL +
+                  '">' +
+                  entryTitle +
+                  "</a></li>"
+              );
             }
           }
         }
@@ -402,10 +408,11 @@ function calendarRequest() {
         });
         for (var i = 0; i < Math.min(events.length, 10); i++) {
           if (events[i]) {
-            menuCalendar.innerHTML +=
+            menuCalendar.innerHTML += DOMPurify.sanitize(
               '<li><a class="tab tab1" href="">' +
-              events[i].summary +
-              "</a></li>";
+                events[i].summary +
+                "</a></li>"
+            );
           }
         }
       }

@@ -1,49 +1,64 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>PageAPatte</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
 
-<body>
+  <body>
     <div id="background"></div>
     <canvas id="snow"></canvas>
     <div class="centerWrapper">
-        <div class="large no-transform">
-            <div id="time" class="left"></div>
-            <div id="weather" class="right text-right">__MSG_indexLoading__</div>
+      <div class="large no-transform">
+        <div id="time" class="left"></div>
+        <div id="weather" class="right text-right">__MSG_indexLoading__</div>
+      </div>
+      <div class="small no-transform">
+        <div id="date" class="left"></div>
+        <div id="details" class="right text-right">
+          __MSG_indexWaitingForWeather__
         </div>
-        <div class="small no-transform">
-            <div id="date" class="left"></div>
-            <div id="details" class="right text-right">__MSG_indexWaitingForWeather__</div>
+      </div>
+      <ul class="box" id="box">
+        <div class="left">
+          <li class="item">
+            <a
+              id="mails"
+              class="parent"
+              data-key="m"
+              href="https://mail.google.com"
+              >__MSG_indexLoadingMails__</a
+            >
+            <ul id="mailsMenu" class="subMenu slideup"></ul>
+          </li>
+          <li class="item">
+            <a
+              id="calendar"
+              class="parent"
+              data-key="a"
+              href="javascript:void(0)"
+              >__MSG_indexCalendar__</a
+            >
+            <ul id="calendarMenu" class="subMenu slideup"></ul>
+          </li>
         </div>
-        <ul class="box" id="box">
-            <div class="left">
-                <li class="item">
-                    <a id="mails" class="parent" data-key="m" href="https://mail.google.com">__MSG_indexLoadingMails__</a>
-                    <ul id="mailsMenu" class="subMenu slideup">
-                    </ul>
-                </li>
-                <li class="item">
-                    <a id="calendar" class="parent" data-key="a" href="javascript:void(0)">__MSG_indexCalendar__</a>
-                    <ul id="calendarMenu" class="subMenu slideup">
-                    </ul>
-                </li>
-            </div>
-            <div id="right" class="right">
-                <li class="item">
-                    <a id="rss0" class="parent" data-key="r" href="javascript:void(0)">__MSG_indexLoadingRSS__</a>
-                    <ul id="rss0Menu" class="subMenu slideup"></ul>
-                </li>
-            </div>
-        </ul>
+        <div id="right" class="right">
+          <li class="item">
+            <a id="rss0" class="parent" data-key="r" href="javascript:void(0)"
+              >__MSG_indexLoadingRSS__</a
+            >
+            <ul id="rss0Menu" class="subMenu slideup"></ul>
+          </li>
+        </div>
+      </ul>
     </div>
     <p id="quote" class="bottom text-center"></p>
     <script src="localizeHTML.js"></script>
-    <script src="bundle.js"></script>
-</body>
-
+    <script src="main.js"></script>
+    <script src="ical.min.js"></script>
+    <script src="unsplash-source.min.js"></script>
+    <script src="purify.min.js"></script>
+  </body>
 </html>
