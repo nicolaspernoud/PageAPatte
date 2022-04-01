@@ -13,11 +13,13 @@
     <div class="centerWrapper">
       <div class="large no-transform">
         <div id="time" class="left"></div>
-        <div id="weather" class="right text-right">__MSG_indexLoading__</div>
+        <div id="weather" class="right text-right translatable">
+          __MSG_indexLoading__
+        </div>
       </div>
       <div class="small no-transform">
         <div id="date" class="left"></div>
-        <div id="details" class="right text-right">
+        <div id="details" class="right text-right translatable">
           __MSG_indexWaitingForWeather__
         </div>
       </div>
@@ -26,7 +28,7 @@
           <li class="item">
             <a
               id="mails"
-              class="parent"
+              class="parent translatable"
               data-key="m"
               href="https://mail.google.com"
               >__MSG_indexLoadingMails__</a
@@ -36,7 +38,7 @@
           <li class="item">
             <a
               id="calendar"
-              class="parent"
+              class="parent translatable"
               data-key="a"
               href="javascript:void(0)"
               >__MSG_indexCalendar__</a
@@ -46,7 +48,11 @@
         </div>
         <div id="right" class="right">
           <li class="item">
-            <a id="rss0" class="parent" data-key="r" href="javascript:void(0)"
+            <a
+              id="rss0"
+              class="parent translatable"
+              data-key="r"
+              href="javascript:void(0)"
               >__MSG_indexLoadingRSS__</a
             >
             <ul id="rss0Menu" class="subMenu slideup"></ul>
@@ -57,7 +63,7 @@
     <p id="quote" class="bottom text-center"></p>
     <script src="localizeHTML.js"></script>
     <script src="main.js"></script>
-    <script src="ical.min.js"></script>
+    <script src="ical.js"></script>
     <script src="unsplash-source.min.js"></script>
     <script src="purify.min.js"></script>
   </body>

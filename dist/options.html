@@ -11,6 +11,7 @@
         font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
           sans-serif;
         text-shadow: 1px 1px 1px var(--light);
+        padding: 20px;
       }
 
       body button {
@@ -50,34 +51,46 @@
   <body>
     <div>
       <p>
-        __MSG_optionsDisclaimerPart1__
-        <a id="don" href="https://paypal.me/NicolasPernoud"
+        <span class="translatable">__MSG_optionsDisclaimerPart1__</span>
+        <a id="don" href="https://paypal.me/NicolasPernoud" class="translatable"
           >__MSG_optionsDisclaimerPart2__</a
         >
       </p>
-      <label for="calendarPrivateURL">__MSG_optionsCalendarPrivateURL__</label>
+      <label for="calendarPrivateURL" class="translatable"
+        >__MSG_optionsCalendarPrivateURL__</label
+      >
       <input type="text" id="calendarPrivateURL" name="calendarPrivateURL" />
-      <label for="sogoMailBoxURL">__MSG_optionsSogoMailBoxURL__</label>
+      <label for="sogoMailBoxURL" class="translatable"
+        >__MSG_optionsSogoMailBoxURL__</label
+      >
       <input type="text" id="sogoMailBoxURL" name="sogoMailBoxURL" />
     </div>
     <div class="checkbox-and-label">
       <input type="checkbox" id="checkBoxUseSOGO" name="checkBoxUseSOGO" />
-      <label for="checkBoxUseSOGO">__MSG_optionscheckBoxUseSOGO__</label>
+      <label for="checkBoxUseSOGO" class="translatable"
+        >__MSG_optionscheckBoxUseSOGO__</label
+      >
     </div>
 
     <div id="rsss">
       <div id="rss0" class="rss">
-        <label for="rssSource">__MSG_optionsRssSource__</label>
+        <label for="rssSource" class="translatable"
+          >__MSG_optionsRssSource__</label
+        >
         <input type="text" class="rssSource" name="rssSource" />
-        <label for="rssTitle">__MSG_optionsRssTitle__</label>
+        <label for="rssTitle" class="translatable"
+          >__MSG_optionsRssTitle__</label
+        >
         <input type="text" class="rssTitle" name="rssTitle" />
-        <label for="rssNb">__MSG_optionsRssNb__</label>
+        <label for="rssNb" class="translatable">__MSG_optionsRssNb__</label>
         <input class="rssNb" name="rssNb" type="number" min="1" max="100" />
-        <button class="removeFlux">__MSG_optionsRemoveFlux__</button>
+        <button class="removeFlux" class="translatable">
+          __MSG_optionsRemoveFlux__
+        </button>
       </div>
     </div>
 
-    <button id="addFlux">__MSG_optionsAddFlux__</button>
+    <button id="addFlux" class="translatable">__MSG_optionsAddFlux__</button>
 
     <div class="checkbox-and-label">
       <input
@@ -85,7 +98,7 @@
         id="checkBoxPrecipitations"
         name="checkBoxPrecipitations"
       />
-      <label for="checkBoxPrecipitations"
+      <label for="checkBoxPrecipitations" class="translatable"
         >__MSG_optionsCheckBoxPrecipitations__</label
       >
     </div>
@@ -95,10 +108,14 @@
         id="checkBoxFahrenheit"
         name="checkBoxFahrenheit"
       />
-      <label for="checkBoxFahrenheit">__MSG_optionsCheckBoxFahrenheit__</label>
+      <label for="checkBoxFahrenheit" class="translatable"
+        >__MSG_optionsCheckBoxFahrenheit__</label
+      >
     </div>
     <div>
-      <button id="save" style="font-weight: bold">__MSG_optionsSave__</button>
+      <button id="save" style="font-weight: bold" class="translatable">
+        __MSG_optionsSave__
+      </button>
     </div>
   </body>
 

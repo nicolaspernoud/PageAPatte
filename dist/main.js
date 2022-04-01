@@ -32,13 +32,14 @@ function randomQuote() {
   var quotes = chrome.i18n.getMessage("quotes").split("/");
   var quoted = chrome.i18n.getMessage("quotesAuthors").split("/");
   var randNumQuotes = Math.floor(Math.random() * quotes.length);
-  document.getElementById("quote").innerText =
+  document.getElementById("quote").innerHTML = DOMPurify.sanitize(
     "&ldquo;" +
-    quotes[randNumQuotes] +
-    "&rdquo; &mdash; " +
-    "<small>" +
-    quoted[randNumQuotes] +
-    "</small>";
+      quotes[randNumQuotes] +
+      "&rdquo; &mdash; " +
+      "<small>" +
+      quoted[randNumQuotes] +
+      "</small>"
+  );
 }
 
 function randomBackground(time) {
