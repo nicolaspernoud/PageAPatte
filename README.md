@@ -2,8 +2,4 @@
 
 ## Installation
 
-Clone the repository
-
-Run `npm install` to install dependencies.
-
-Run `npm run build` to build script.js and its dependencies into ./dist/bundle.js. The all dist directory is then usable as the extension.
+Clone the repository. The `dist` directory is usable as the extension.

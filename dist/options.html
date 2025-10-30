@@ -47,6 +47,8 @@
       display: none;
     }
   </style>
+  <script defer src="localizeHTML.js"></script>
+  <script defer src="options.js"></script>
 </head>
 
 <body>
@@ -73,7 +75,7 @@
       <input type="text" class="rssTitle" name="rssTitle" />
       <label for="rssNb" class="translatable">__MSG_optionsRssNb__</label>
       <input class="rssNb" name="rssNb" type="number" min="1" max="100" />
-      <button class="removeFlux" class="translatable">__MSG_optionsRemoveFlux__</button>
+      <button class="removeFlux translatable">__MSG_optionsRemoveFlux__</button>
     </div>
   </div>
 
@@ -92,13 +94,10 @@
       __MSG_optionsSave__
     </button>
   </div>
-  <p>
-    <span class="translatable">__MSG_optionsZenQuotesAttribution__</span>
+  <div class="translatable">
+    __MSG_optionsZenQuotesAttribution__
     <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a>
-  </p>
+  </div>
 </body>
-
-<script src="localizeHTML.js"></script>
-<script src="options.js"></script>
 
 </html>
