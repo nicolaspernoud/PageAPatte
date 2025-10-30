@@ -94,7 +94,7 @@ p {
 
 #quote {
     position: absolute;
-    font-size: smaller;
+    font-size: medium;
     width: 100%;
     bottom: 1%;
     z-index: -1;

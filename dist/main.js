@@ -29,38 +29,27 @@ function startTime() {
 
 // Random quote function. Important: Make sure each quote has a corresponding "quoted".
 function randomQuote() {
-  var quotes = chrome.i18n.getMessage("quotes").split("/");
-  var quoted = chrome.i18n.getMessage("quotesAuthors").split("/");
-  var randNumQuotes = Math.floor(Math.random() * quotes.length);
-  document.getElementById("quote").innerHTML = DOMPurify.sanitize(
-    "&ldquo;" +
-      quotes[randNumQuotes] +
-      "&rdquo; &mdash; " +
-      "<small>" +
-      quoted[randNumQuotes] +
-      "</small>"
-  );
+  fetch("https://zenquotes.io/api/random")
+    .then((response) => response.json())
+    .then((data) => {
+      const quote = data[0].q;
+      const author = data[0].a;
+      document.getElementById("quote").innerHTML = DOMPurify.sanitize(
+        `&ldquo;${quote}&rdquo; &mdash; <small>${author}</small>`
+      );
+    })
+    .catch((error) => {
+      console.error("Error fetching quote:", error);
+      // Fallback to a default quote if the API fails
+      document.getElementById("quote").innerHTML = DOMPurify.sanitize(
+        "&ldquo;The journey of a thousand miles begins with a single step.&rdquo; &mdash; <small>Lao Tzu</small>"
+      );
+    });
 }
 
-function randomBackground(time) {
-  // daily, weekly, or every time
-  var categories = [
-    "buildings",
-    /*'food',*/ "nature",
-    /*'people', 'technology',*/ "objects",
-  ];
-  var randomCategory = Math.floor(Math.random() * categories.length);
-  var photo = new UnsplashPhoto();
-
-  if (time == "daily" || time == "weekly")
-    photo
-      .all()
-      .randomize(time)
-      .fromCategory(categories[randomCategory])
-      .fetch();
-  else photo.all().fromCategory(categories[randomCategory]).fetch();
-
-  document.body.style.backgroundImage = "url(" + photo.url + ")";
+function randomBackground() {
+  const { width, height } = screen;
+  document.body.style.backgroundImage = `url(https://picsum.photos/${width}/${height})`;
 }
 
 // Gets weather for requested location, appends to page

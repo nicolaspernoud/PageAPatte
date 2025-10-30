@@ -1,124 +1,104 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Options</title>
-    <style>
-      body {
-        width: 600px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-          sans-serif;
-        text-shadow: 1px 1px 1px var(--light);
-        padding: 20px;
-      }
 
-      body button {
-        margin-bottom: 10px !important;
-      }
+<head>
+  <title>Options</title>
+  <style>
+    body {
+      width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+      text-shadow: 1px 1px 1px var(--light);
+      padding: 20px;
+    }
 
-      input[type="text"] {
-        width: 100%;
-        margin-bottom: 10px;
-      }
+    body button {
+      margin-bottom: 10px !important;
+    }
 
-      .checkbox-and-label {
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-      }
+    input[type="text"] {
+      width: 100%;
+      margin-bottom: 10px;
+    }
 
-      .rss {
-        border: 1px solid #ccc !important;
-        border-radius: 16px;
-        margin-bottom: 10px;
-        padding: 10px;
-        width: 100%;
-      }
+    .checkbox-and-label {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
 
-      .rss input[type="text"] {
-        width: 90%;
-        display: block;
-      }
+    .rss {
+      border: 1px solid #ccc !important;
+      border-radius: 16px;
+      margin-bottom: 10px;
+      padding: 10px;
+      width: 100%;
+    }
 
-      #rss0 button {
-        display: none;
-      }
-    </style>
-  </head>
+    .rss input[type="text"] {
+      width: 90%;
+      display: block;
+    }
 
-  <body>
-    <div>
-      <p>
-        <span class="translatable">__MSG_optionsDisclaimerPart1__</span>
-        <a id="don" href="https://paypal.me/NicolasPernoud" class="translatable"
-          >__MSG_optionsDisclaimerPart2__</a
-        >
-      </p>
-      <label for="calendarPrivateURL" class="translatable"
-        >__MSG_optionsCalendarPrivateURL__</label
-      >
-      <input type="text" id="calendarPrivateURL" name="calendarPrivateURL" />
-      <label for="sogoMailBoxURL" class="translatable"
-        >__MSG_optionsSogoMailBoxURL__</label
-      >
-      <input type="text" id="sogoMailBoxURL" name="sogoMailBoxURL" />
+    #rss0 button {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <p>
+      <span class="translatable">__MSG_optionsDisclaimerPart1__</span>
+      <a id="don" href="https://paypal.me/NicolasPernoud" class="translatable">__MSG_optionsDisclaimerPart2__</a>
+    </p>
+    <label for="calendarPrivateURL" class="translatable">__MSG_optionsCalendarPrivateURL__</label>
+    <input type="text" id="calendarPrivateURL" name="calendarPrivateURL" />
+    <label for="sogoMailBoxURL" class="translatable">__MSG_optionsSogoMailBoxURL__</label>
+    <input type="text" id="sogoMailBoxURL" name="sogoMailBoxURL" />
+  </div>
+  <div class="checkbox-and-label">
+    <input type="checkbox" id="checkBoxUseSOGO" name="checkBoxUseSOGO" />
+    <label for="checkBoxUseSOGO" class="translatable">__MSG_optionscheckBoxUseSOGO__</label>
+  </div>
+
+  <div id="rsss">
+    <div id="rss0" class="rss">
+      <label for="rssSource" class="translatable">__MSG_optionsRssSource__</label>
+      <input type="text" class="rssSource" name="rssSource" />
+      <label for="rssTitle" class="translatable">__MSG_optionsRssTitle__</label>
+      <input type="text" class="rssTitle" name="rssTitle" />
+      <label for="rssNb" class="translatable">__MSG_optionsRssNb__</label>
+      <input class="rssNb" name="rssNb" type="number" min="1" max="100" />
+      <button class="removeFlux" class="translatable">__MSG_optionsRemoveFlux__</button>
     </div>
-    <div class="checkbox-and-label">
-      <input type="checkbox" id="checkBoxUseSOGO" name="checkBoxUseSOGO" />
-      <label for="checkBoxUseSOGO" class="translatable"
-        >__MSG_optionscheckBoxUseSOGO__</label
-      >
-    </div>
+  </div>
 
-    <div id="rsss">
-      <div id="rss0" class="rss">
-        <label for="rssSource" class="translatable"
-          >__MSG_optionsRssSource__</label
-        >
-        <input type="text" class="rssSource" name="rssSource" />
-        <label for="rssTitle" class="translatable"
-          >__MSG_optionsRssTitle__</label
-        >
-        <input type="text" class="rssTitle" name="rssTitle" />
-        <label for="rssNb" class="translatable">__MSG_optionsRssNb__</label>
-        <input class="rssNb" name="rssNb" type="number" min="1" max="100" />
-        <button class="removeFlux" class="translatable">
-          __MSG_optionsRemoveFlux__
-        </button>
-      </div>
-    </div>
+  <button id="addFlux" class="translatable">__MSG_optionsAddFlux__</button>
 
-    <button id="addFlux" class="translatable">__MSG_optionsAddFlux__</button>
+  <div class="checkbox-and-label">
+    <input type="checkbox" id="checkBoxPrecipitations" name="checkBoxPrecipitations" />
+    <label for="checkBoxPrecipitations" class="translatable">__MSG_optionsCheckBoxPrecipitations__</label>
+  </div>
+  <div class="checkbox-and-label">
+    <input type="checkbox" id="checkBoxFahrenheit" name="checkBoxFahrenheit" />
+    <label for="checkBoxFahrenheit" class="translatable">__MSG_optionsCheckBoxFahrenheit__</label>
+  </div>
+  <div>
+    <button id="save" style="font-weight: bold" class="translatable">
+      __MSG_optionsSave__
+    </button>
+  </div>
+  <p>
+    <span class="translatable">__MSG_optionsZenQuotesAttribution__</span>
+    <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a>
+  </p>
+</body>
 
-    <div class="checkbox-and-label">
-      <input
-        type="checkbox"
-        id="checkBoxPrecipitations"
-        name="checkBoxPrecipitations"
-      />
-      <label for="checkBoxPrecipitations" class="translatable"
-        >__MSG_optionsCheckBoxPrecipitations__</label
-      >
-    </div>
-    <div class="checkbox-and-label">
-      <input
-        type="checkbox"
-        id="checkBoxFahrenheit"
-        name="checkBoxFahrenheit"
-      />
-      <label for="checkBoxFahrenheit" class="translatable"
-        >__MSG_optionsCheckBoxFahrenheit__</label
-      >
-    </div>
-    <div>
-      <button id="save" style="font-weight: bold" class="translatable">
-        __MSG_optionsSave__
-      </button>
-    </div>
-  </body>
+<script src="localizeHTML.js"></script>
+<script src="options.js"></script>
 
-  <script src="localizeHTML.js"></script>
-  <script src="options.js"></script>
 </html>
